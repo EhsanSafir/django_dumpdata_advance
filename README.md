@@ -15,10 +15,10 @@ To get the latest stable release from PyPi
 
 Add ``advance_dumpdata`` to your ``INSTALLED_APPS``
 
-    `INSTALLED_APPS = (
+    INSTALLED_APPS = (
         ...,
         "django_dumpdata_one",
-    )`
+    )
 Usage
 -----
 
@@ -26,7 +26,7 @@ Export data:
 
 
 
-    `./manage.py dumpdata_one app_name.model_name --fields=field1,field2 > dump_file.json`
+    ./manage.py dumpdata_one app_name.model_name --fields=field1,field2 > dump_file.json
 
 
 Import data:
