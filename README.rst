@@ -1,11 +1,11 @@
- Django Advance Dumpdata
+Django Advance Dumpdata
 ===================
 
 Django Manage Command like  ``dumpdata`` but with have more feature to  Output the contents of the database from given fields of a model
 and filter that data using standard Django lookups for filtering.
 data  can be export with divers format like json,xml,yaml.exported structure is compatible with Django ``dumpdata`` structure which
 allows you to use standard ``loaddata`` command for import.
-xx
+
 Installation
 ------------
 
