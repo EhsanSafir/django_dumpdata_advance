@@ -8,7 +8,7 @@ setup(
     version="0.0.1",
     description="Django Manage Command; Output the contents of the database"
                 " as a fixture of the given format,filter and more features ",
-    long_description=open(os.path.join(os.path.dirname(__file__), "README.md")).read(),
+    long_description=open(os.path.join(os.path.dirname(__file__), "README.rst")).read(),
     long_description_content_type="text/markdown",
     author="Ehsan Safir , Sayed Farid Qattali",
     author_email="EhsanSafir@outlook.com , eng.faridqattali@gmail.com ",
