@@ -32,7 +32,7 @@ Export data:
 
  .. code-block:: bash
 
-    ./manage.py dumpdata_one app_name.model_name --fields=field1,field2 > dump_file.json
+    ./manage.py  dumpdata_advance app_name.model_name --fields=field1,field2 > dump_file.json
 
 
 Import data:
@@ -47,9 +47,9 @@ lookups - https://docs.djangoproject.com/en/3.0/topics/db/queries/#field-lookups
 
  .. code-block:: bash
 
-    ./manage.py dumpdata_one app_name.model_name --fields=field1 --filter=name__icontains=django
+    ./manage.py  dumpdata_advance app_name.model_name --fields=field1 --filter=name__icontains=django
 
-    ./manage.py dumpdata_one app_name.model_name --fields=field1 --filter=name__icontains=django,pk__gt=300
+    ./manage.py  dumpdata_advance app_name.model_name --fields=field1 --filter=name__icontains=django,pk__gt=300
 
 Set order by:
 
