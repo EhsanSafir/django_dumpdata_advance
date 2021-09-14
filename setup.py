@@ -5,7 +5,7 @@ from setuptools import find_packages, setup
 setup(
     name="django-advance-dumpdata",
     zip_safe=False,
-    version="0.0.1",
+    version="0.0.2",
     description="Django Manage Command; Output the contents of the database"
                 " as a fixture of the given format,filter and more features ",
     long_description=open(os.path.join(os.path.dirname(__file__), "README.rst")).read(),
