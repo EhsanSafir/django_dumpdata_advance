@@ -1,0 +1,1 @@
+Generate all fixture if app_model not provide

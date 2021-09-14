@@ -1,5 +1,6 @@
 import json
-from django import apps
+
+from django.apps import apps
 from django.core.management.base import BaseCommand
 from django.core.serializers.json import DjangoJSONEncoder
 
@@ -13,16 +14,22 @@ class Command(BaseCommand):
         parser.add_argument('--order', type=str, default='pk',
                             help='field by which dumpped data is ordered')
         parser.add_argument('--fields', type=str,
-                            help='list of fields to include in dumpped data')
+                            help='list of fields to include in dumpped data',
+                            default='*')
         parser.add_argument('--exclude_fields', type=str,
-                            help='list of fields to exclude from dumpped data')
+                            help='list of fields to exclude from dumpped data',
+                            default=''
+
+                            )
         parser.add_argument(
-            '--filter', type=str, help='key/value pairs to apply as filter on dumpped data')
+            '--filter', type=str, help='key/value pairs to apply as filter on dumpped data',
+            default=''
+            )
         parser.add_argument('--limit', type=int,
-                            help='an integer to limit number of records')
+                            help='an integer to limit number of records',default=None)
         parser.add_argument('--database', type=str,
-                            help='database name to dump data from')
-        parser.add_argument('--format', type=str,
+                            help='database name to dump data from',default='default')
+        parser.add_argument('--format', type=str,default='json',
                             help='the output format of dumpped data e.g: json')
 
     def handle(self, *args, **options):
@@ -33,7 +40,7 @@ class Command(BaseCommand):
         order = options['order']
         filters = self.normalize_filter_string(options['filter'])
         limit = options['limit']
-        database = options['database'] or 'default'
+        database = options['database']
         format = options['format']
 
         Model = apps.get_model(app_model)
@@ -42,13 +49,12 @@ class Command(BaseCommand):
             fields = self.get_model_all_fields(Model)
         else:
             fields = fields.split(',') if fields is not None else []
-
-        exclude_fields = exclude_fields.split(
-            ',') if exclude_fields is not None else []
-
-        for field in exclude_fields:
-            if field in fields:
-                fields.remove(field)
+        if exclude_fields:
+            exclude_fields = exclude_fields.split(
+                ',') if exclude_fields is not None else []
+            for field in exclude_fields:
+                if field in fields:
+                    fields.remove(field)
 
         if 'pk' not in fields:
             fields.append('pk')

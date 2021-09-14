@@ -3,7 +3,7 @@ import os
 from setuptools import find_packages, setup
 
 setup(
-    name="django-advance_dumpdata",
+    name="django-advance-dumpdata",
     zip_safe=False,
     version="0.0.1",
     description="Django Manage Command; Output the contents of the database"
