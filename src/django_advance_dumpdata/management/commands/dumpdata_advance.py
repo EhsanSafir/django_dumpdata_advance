@@ -3,7 +3,7 @@ import json
 from django.apps import apps
 from django.core.management.base import BaseCommand
 from django.core.serializers.json import DjangoJSONEncoder
-
+from django.core import serializers
 
 class Command(BaseCommand):
 
@@ -66,14 +66,17 @@ class Command(BaseCommand):
         order_by = self.normalize_order_string(order)
 
         records = records.order_by(*order_by)
-        records = records.values(*fields)
+        # records = records.values(*fields)
         if limit:
             records = records[:limit]
 
-        dump_structure = self.get_dump_structure(
-            app_model, records, fields, Model
-        )
-        result = json.dumps(dump_structure, cls=DjangoJSONEncoder)
+        # dump_structure = self.get_dump_structure(
+        #     app_model, records, fields, Model
+        # )
+        # result = json.dumps(dump_structure, cls=DjangoJSONEncoder)
+
+        result = self.get_dump_structure(records=records, fields=fields, format=format)
+
         return result
 
     def normalize_filter_string(self, filter_string):
@@ -92,19 +95,24 @@ class Command(BaseCommand):
     def get_model_all_fields(self, Model):
         return [field.name for field in Model._meta.fields]
 
-    def get_dump_structure(self, app_model, records, Model, format):
-        results = []
-        for record in records:
-            values = {}
-            for key, value in record.items():
-                if key != "pk":
-                    values[key] = value
+    # def get_dump_structure(self, app_model, records, Model, format):
+    #     results = []
+    #     for record in records:
+    #         values = {}
+    #         for key, value in record.items():
+    #             if key != "pk":
+    #                 values[key] = value
 
-            record_structrue = {
-                "model": app_model,
-                "pk": record.get("pk"),
-                "fields": values
-            }
-            results.append(record_structrue)
+    #         record_structrue = {
+    #             "model": app_model,
+    #             "pk": record.get("pk"),
+    #             "fields": values
+    #         }
+    #         results.append(record_structrue)
 
-        return results
+    #     return results
+
+    def get_dump_structure(self, records, fields, format=json):
+        result = serializers.serialize(format, records, fields=fields)
+
+        return result
